@@ -60,9 +60,7 @@ def get_molar_mass(element, data):
 
     elif element[1].islower(): # HeH... He2...
         if element[2].isnumeric():
-            return data[element[0:2]] * float(element[2]) + get_molar_mass(element, data)
+            return data[element[0:2]] * float(element[2]) + get_molar_mass(element[3:], data)
         else:
-            return data[element[0:2]] + get_molar_mass(element, data)
-
-print(get_molar_mass("HeHCa2",data))
+            return data[element[0:2]] + get_molar_mass(element[2:], data)
 
