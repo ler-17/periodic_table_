@@ -18,8 +18,32 @@ def get_num(str):
 # remove parenthesis
 # salvage code?
 # N(CHO)3Ca2
+def inject_in_parenthesis(substring, num = 1):
+    new_string = substring
+    index = 0
+    for i in range(len(substring)):
+        if substring[i+1].isupper():
+            if not substring[i].isnumeric():
+                index += 1
+                new_string = new_string[:index] + str(num) + new_string[index:]
+            else:
+                index += 1
+                new_string = new_string[:index] + str(num) * new_string[index] + new_string[index + 1:]
+        index += 1
+
+
 def make_monstrosity(species):
     monstrosity = species
+
+    while "(" in species:
+        start = species.indexOf("(")
+        end = species.indexOf(")")
+        num_index = end + 1
+        substring = species[start + 1: end ]
+        for i in range(len(substring)):
+
+
+
 
     monstrosity_index = 0
     for i in range(len(species) - 1):
