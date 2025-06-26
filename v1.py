@@ -4,6 +4,7 @@ f = open("periodic_table.json")
 data = json.loads(f.read())
 f.close()
 
+# assumptions : numbers are single digits
 def get_molar_mass(element, data):
     # base cases
 
@@ -64,3 +65,5 @@ def get_molar_mass(element, data):
         else:
             return data[element[0:2]] + get_molar_mass(element[2:], data)
 
+
+print(get_molar_mass("H8C2Ca3", data))
