@@ -1,5 +1,13 @@
 import json
 
+# algorithm:
+# take in a species and convert it to a string where each element symbol is followed
+# by the number of that element (int). remove parenthesis.
+# create a dictionary with element symbols corresponding to the number of that element in the
+# species
+# calculate molar mass by parsing through dictionary and multiplying the molar mass for each
+# element by the number of that element
+
 f = open("periodic_table.json")
 data = json.loads(f.read())
 f.close()
@@ -12,14 +20,9 @@ def get_num(str):
         i += 1
     return int(num)
 
-# find "(" and ")"
-# number after ")"
-# inject number after each element
-# remove parenthesis
-# salvage code?
-
-
-# N(CHO)3Ca2
+# inject_in_substring takes in a species string and adds numbers after each element. if there are
+# already numbers present, the program leaves the numbers as is or multiplies them by a specified
+# multiple (optional parameter)
 def inject_in_substring(substring, multiple = 1):
     new_string = substring
     index = 0
@@ -42,9 +45,9 @@ def inject_in_substring(substring, multiple = 1):
 
     return new_string
 
-# now we have a function to deal with a substring. we just need to:
-# (1) call in strategic locations
-# (2)
+# parse_whole takes in an entire species and
+# (1) removes parenthesis
+# (2) calls inject_in_substring to inject the correct numbers where relevant
 def parse_whole(species):
     new_species = species
     while "(" in species:
@@ -61,12 +64,15 @@ def parse_whole(species):
         new_species = species[:i_start] + inject_in_substring(substring, multiple) + rest
         species = new_species
 
-    new_species = inject_in_substring(species, 1)
+    new_species = inject_in_substring(species)
 
     return new_species
 
 print(parse_whole("H(CHO)2Ne"))
 
+# takes in a parsed species (correct number after each element) and converts it into a dictionary.
+# Each keys are element symbol strings which correspond to the number of that element in the
+# species
 def make_dic(monstrosity):
     dic = {}
     guy = 0
@@ -81,6 +87,9 @@ def make_dic(monstrosity):
 
     return dic
 
+# get_molar_mass takes a dictionary with element symbols corresponding to the number of that
+# element in the species and calculates the molar mass of the species. Uses the periodic_table.json
+# file which has each element symbol corresponding to that element's molar mass.
 def get_molar_mass(dic, data):
     molar_mass = 0
     for element in dic:
